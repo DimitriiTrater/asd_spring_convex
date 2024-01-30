@@ -5,10 +5,10 @@ use jarvis::jarvismarch;
 use plotters::prelude::*;
 use point::Point;
 
-fn generate_random_points() -> Vec<Point> {
+fn generate_random_points(count_of_points: i32) -> Vec<Point> {
     let mut rng = rand::thread_rng();
     let mut points: Vec<Point> = Vec::new();
-    for _ in 0..10 {
+    for _ in 0..count_of_points {
         points.push(rng.gen::<Point>())
     }
     points
@@ -32,7 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .y_label_formatter(&|x| format!("{:.3}", x))
         .draw()?;
 
-    let points = generate_random_points();
+    let points = generate_random_points(10);
 
     chart.draw_series(PointSeries::of_element(
         Point::get_tuples(points.clone()),

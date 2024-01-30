@@ -14,7 +14,7 @@ pub fn jarvismarch(points: Vec<Point>) -> Option<Vec<Point>> {
     }
     let mut hull: Vec<Point> = Vec::new();
 
-    let mut p = p0;
+    let mut p = p0.clone();
     loop {
         hull.push(p);
         let index_of_p = points.iter().position(|&r| r == p).unwrap();
