@@ -6,27 +6,27 @@ pub fn jarvismarch(points: Vec<Point>) -> Option<Vec<Point>> {
     }
 
     // find the leftmost point
-    let mut p0 = points[0].clone();
+    let mut leftmost = points[0].clone();
     for point in &points {
-        if (point.x < p0.x) || ((point.x == p0.x) && (point.y < p0.y)) {
-            p0 = point.clone();
+        if (point.x < leftmost.x) || ((point.x == leftmost.x) && (point.y < leftmost.y)) {
+            leftmost = point.clone();
         }
     }
     let mut hull: Vec<Point> = Vec::new();
 
-    let mut p = p0.clone();
+    let mut p = leftmost.clone();
     loop {
         hull.push(p);
         let index_of_p = points.iter().position(|&r| r == p).unwrap();
         let mut q = points[(index_of_p + 1) % points.len()];
-        for i in 0..points.len() {
-            match Point::orientation(p, points[i], q) {
-                State::CounterClock => q = points[i].clone(),
+        for point in &points {
+            match Point::orientation(p, *point, q) {
+                State::CounterClock => q = point.clone(),
                 _ => (),
             }
         }
         p = q.clone();
-        if p == p0 {
+        if p == leftmost {
             break;
         }
     }

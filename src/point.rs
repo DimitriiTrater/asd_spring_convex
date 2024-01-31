@@ -49,7 +49,7 @@ impl Point {
 
 impl Distribution<Point> for Standard {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Point {
-        let (rand_x, rand_y) = (rng.gen_range(-10i32..10i32), rng.gen_range(-10i32..10i32));
+        let (rand_x, rand_y) = (rng.gen_range(-100i32..100i32), rng.gen_range(-100i32..100i32));
         Point {
             x: rand_x,
             y: rand_y,

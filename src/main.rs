@@ -23,7 +23,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .caption("Jarvis", ("sans-serif", 40).into_font())
         .x_label_area_size(20)
         .y_label_area_size(40)
-        .build_cartesian_2d(-10i32..10i32, -10i32..10i32)?;
+        .build_cartesian_2d(-100i32..100i32, -100i32..100i32)?;
 
     chart
         .configure_mesh()
@@ -32,7 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .y_label_formatter(&|x| format!("{:.3}", x))
         .draw()?;
 
-    let points = generate_random_points(10);
+    let points = generate_random_points(3000);
 
     chart.draw_series(PointSeries::of_element(
         Point::get_tuples(points.clone()),
@@ -46,7 +46,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     ))?;
 
     let pts = jarvismarch(points.clone());
-
+    println!("{:#?}", pts);
     chart.draw_series(LineSeries::new(Point::get_tuples(pts.unwrap()), &RED))?;
 
     root.present()?;
